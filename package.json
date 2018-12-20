@@ -1,0 +1,27 @@
+{
+    "name": "dhall-language-support",
+    "displayName": "Dhall language support",
+    "description": "VSCode Launguage Support for Dhall",
+    "publisher": "e--ntyo",
+    "version": "0.0.0",
+    "repository": "https://github.com/entyo/dhall-language-support.git",
+    "engines": {
+        "vscode": "^1.30.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "dhall",
+            "aliases": ["dhall", "dhall"],
+            "extensions": [".dhall"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "dhall",
+            "scopeName": "source.dhall",
+            "path": "./syntaxes/dhall.tmLanguage.json"
+        }]
+    }
+}

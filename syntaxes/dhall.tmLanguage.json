@@ -1,0 +1,219 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "dhall",
+  "patterns": [{
+      "include": "#keywords"
+    }, {
+      "include": "#strings"
+    },
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#storage"
+    },
+    {
+      "include": "#support"
+    },
+    {
+      "include": "#constant"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [{
+          "name": "keyword.control.dhall",
+          "match": "\\b(let|in|constructors|if|then|else|merge|env|as)\\b"
+        },
+        {
+          "name": "keyword.operator.list-append.dhall",
+          "match": "\\#"
+        }, {
+          "name": "keyword.operator.plus.dhall",
+          "match": "\\+"
+        }, {
+          "name": "keyword.operator.equal.dhall",
+          "match": "="
+        }, {
+          "name": "keyword.operator.or.dhall",
+          "match": "\\|\\|"
+        },
+        {
+          "name": "keyword.operator.text-append.dhall",
+          "match": "\\+\\+"
+        },
+        {
+          "name": "keyword.operator.and.dhall",
+          "match": "&&"
+        },
+        {
+          "name": "keyword.operator.times.dhall",
+          "match": "\\*"
+        },
+        {
+          "name": "keyword.operator.double-equal.dhall",
+          "match": "=="
+        },
+        {
+          "name": "keyword.operator.not-equal.dhall",
+          "match": "!="
+        },
+        {
+          "name": "keyword.operator.dot.dhall",
+          "match": "\\."
+        },
+        {
+          "name": "keyword.operator.open-brace.dhall",
+          "match": "{(?!-)"
+        },
+        {
+          "name": "keyword.operator.close-brace.dhall",
+          "match": "(?<!-)}"
+        },
+        {
+          "name": "keyword.operator.open-bracket.dhall",
+          "match": "\\["
+        },
+        {
+          "name": "keyword.operator.close-bracke.dhall",
+          "match": "\\]"
+        },
+        {
+          "name": "keyword.operator.open-angle.dhall",
+          "match": "<"
+        },
+        {
+          "name": "keyword.operator.close-angle.dhall",
+          "match": ">"
+        },
+        {
+          "name": "keyword.operator.bar.dhall",
+          "match": "\\|"
+        },
+        {
+          "name": "keyword.operator.comma.dhall",
+          "match": ","
+        },
+        {
+          "name": "keyword.operator.open-parens.dhall",
+          "match": "\\("
+        },
+        {
+          "name": "keyword.operator.close-parens.dhall",
+          "match": "\\)"
+        },
+        {
+          "name": "keyword.operator.at.dhall",
+          "match": "@"
+        },
+        {
+          "name": "keyword.operator.colon.dhall",
+          "match": ":"
+        },
+        {
+          "name": "keyword.operator.import-alt.dhall",
+          "match": "\\?"
+        },
+        {
+          "name": "keyword.operator.combine.dhall",
+          "match": "∧|/\\\\"
+        },
+        {
+          "name": "keyword.operator.combine-types.dhall",
+          "match": "⩓|//\\\\"
+        },
+        {
+          "name": "keyword.operator.prefer.dhall",
+          "match": "⫽|//"
+        },
+        {
+          "name": "keyword.operator.lambda.dhall",
+          "match": "[λ\\\\]"
+        },
+        {
+          "name": "keyword.operator.arrow.dhall",
+          "match": "(?:->|→)"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted",
+      "patterns": [{
+        "include": "#double-quoted"
+      }, {
+        "include": "#single-quoted"
+      }]
+    },
+    "double-quoted": {
+      "name": "string.quoted.double.dhall",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [{
+        "begin": "\\${",
+        "end": "}",
+        "name": "constant.other.placeholder.dhall"
+      }, {
+        "name": "constant.character.sequence.escape.dhall",
+        "match": "\\\\(?:[\"$\\\\/bfnrt]|[uU](?:[0-9]|[a-fA-F]){4})"
+      }]
+    },
+    "single-quoted": {
+      "name": "string.quoted.single.dhall",
+      "begin": "''",
+      "end": "''(?!(\\${)|('))",
+      "patterns": [{
+          "begin": "\\${",
+          "end": "}",
+          "name": "constant.other.placeholder.dhall"
+        }, {
+          "name": "constant.character.escape.quotes.dhall",
+          "match": "'''"
+        }, {
+          "name": "constant.character.escape.interpolate.dhall",
+          "match": "''\\${"
+        },
+        {
+          "name": "constant.character.sequence.escape.dhall",
+          "match": "\\\\(?:[\"$\\\\/bfnrt]|[uU](?:[0-9]|[a-fA-F]){4})"
+        }
+      ]
+    },
+    "comments": {
+      "name": "comment.dhall",
+      "patterns": [{
+          "begin": "{-",
+          "end": "-}",
+          "name": "comment.block.dhall"
+        },
+        {
+          "name": "comment.line.dhall",
+          "match": "--.*$"
+        }
+      ]
+    },
+    "constant": {
+      "patterns": [{
+        "name": "constant.language.dhall",
+        "match": "\\b(?:True|False|None|Sort)\\b"
+      }]
+    },
+    "storage": {
+      "patterns": [{
+          "name": "storage.type.dhall",
+          "match": "\\b(?:Bool|Optional|Natural|Integer|Double|Text|List|Type|Kind)\\b"
+        },
+        {
+          "name": "storage.modifier.dhall",
+          "match": "(?:\\bforall\\b|∀)"
+        }
+      ]
+    },
+    "support": {
+      "patterns": [{
+        "name": "support.function.dhall",
+        "match": "\\b(?:Natural\/(?:fold|build|isZero|even|odd|toInteger|show|toDouble|show)|Double\/show|List\/(?:build|fold|length|head|last|indexed|reverse)|Optional\/(?:fold|build)|Integer\/(?:show|toDouble)|Some)\\b"
+      }]
+    }
+  },
+  "scopeName": "source.dhall"
+}
