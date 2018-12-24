@@ -1,9 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "dhall",
-  "patterns": [{
+  "patterns": [
+    {
       "include": "#keywords"
-    }, {
+    },
+    {
       "include": "#strings"
     },
     {
@@ -21,20 +23,24 @@
   ],
   "repository": {
     "keywords": {
-      "patterns": [{
+      "patterns": [
+        {
           "name": "keyword.control.dhall",
-          "match": "\\b(let|in|constructors|if|then|else|merge|env|as)\\b"
+          "match": "\\b(let|in|constructors|if|then|else|merge|env|as|using)\\b"
         },
         {
           "name": "keyword.operator.list-append.dhall",
           "match": "\\#"
-        }, {
+        },
+        {
           "name": "keyword.operator.plus.dhall",
           "match": "\\+"
-        }, {
+        },
+        {
           "name": "keyword.operator.equal.dhall",
           "match": "="
-        }, {
+        },
+        {
           "name": "keyword.operator.or.dhall",
           "match": "\\|\\|"
         },
@@ -137,38 +143,64 @@
       ]
     },
     "strings": {
-      "name": "string.quoted",
-      "patterns": [{
-        "include": "#double-quoted"
-      }, {
-        "include": "#single-quoted"
-      }]
+      "patterns": [
+        {
+          "include": "#quoted"
+        },
+        { "include": "#unquoted" }
+      ]
+    },
+    "quoted": {
+      "name": "string.quoted.dhall",
+      "patterns": [
+        {
+          "include": "#single-quoted"
+        },
+        {
+          "include": "#double-quoted"
+        }
+      ]
+    },
+    "unquoted": {
+      "name": "string.unquoted.dhall",
+      "patterns": [
+        {
+          "name": "string.unquoted.url.dhall",
+          "match": "(https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%\\._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+\\.~#\\?&\\/\\/=]*))(?:\\s*(sha256)(:)((?:[0-9]|[a-fA-F]){64}))?(?:\\s*(as)\\s*(Text))?"
+        }
+      ]
     },
     "double-quoted": {
       "name": "string.quoted.double.dhall",
       "begin": "\"",
       "end": "\"",
-      "patterns": [{
-        "begin": "\\${",
-        "end": "}",
-        "name": "constant.other.placeholder.dhall"
-      }, {
-        "name": "constant.character.sequence.escape.dhall",
-        "match": "\\\\(?:[\"$\\\\/bfnrt]|[uU](?:[0-9]|[a-fA-F]){4})"
-      }]
+      "patterns": [
+        {
+          "begin": "\\${",
+          "end": "}",
+          "name": "constant.other.placeholder.dhall"
+        },
+        {
+          "name": "constant.character.sequence.escape.dhall",
+          "match": "\\\\(?:[\"$\\\\/bfnrt]|[uU](?:[0-9]|[a-fA-F]){4})"
+        }
+      ]
     },
     "single-quoted": {
       "name": "string.quoted.single.dhall",
       "begin": "''",
       "end": "''(?!(\\${)|('))",
-      "patterns": [{
+      "patterns": [
+        {
           "begin": "\\${",
           "end": "}",
           "name": "constant.other.placeholder.dhall"
-        }, {
+        },
+        {
           "name": "constant.character.escape.quotes.dhall",
           "match": "'''"
-        }, {
+        },
+        {
           "name": "constant.character.escape.interpolate.dhall",
           "match": "''\\${"
         },
@@ -180,7 +212,8 @@
     },
     "comments": {
       "name": "comment.dhall",
-      "patterns": [{
+      "patterns": [
+        {
           "begin": "{-",
           "end": "-}",
           "name": "comment.block.dhall"
@@ -192,13 +225,16 @@
       ]
     },
     "constant": {
-      "patterns": [{
-        "name": "constant.language.dhall",
-        "match": "\\b(?:True|False|None|Sort)\\b"
-      }]
+      "patterns": [
+        {
+          "name": "constant.language.dhall",
+          "match": "\\b(?:True|False|None|Sort|NaN|Infinity)\\b"
+        }
+      ]
     },
     "storage": {
-      "patterns": [{
+      "patterns": [
+        {
           "name": "storage.type.dhall",
           "match": "\\b(?:Bool|Optional|Natural|Integer|Double|Text|List|Type|Kind)\\b"
         },
@@ -209,10 +245,12 @@
       ]
     },
     "support": {
-      "patterns": [{
-        "name": "support.function.dhall",
-        "match": "\\b(?:Natural\/(?:fold|build|isZero|even|odd|toInteger|show|toDouble|show)|Double\/show|List\/(?:build|fold|length|head|last|indexed|reverse)|Optional\/(?:fold|build)|Integer\/(?:show|toDouble)|Some)\\b"
-      }]
+      "patterns": [
+        {
+          "name": "support.function.dhall",
+          "match": "\\b(?:Natural/(?:fold|build|isZero|even|odd|toInteger|show|toDouble|show)|Double/show|List/(?:build|fold|length|head|last|indexed|reverse)|Optional/(?:fold|build)|Integer/(?:show|toDouble)|Some)\\b"
+        }
+      ]
     }
   },
   "scopeName": "source.dhall"
