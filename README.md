@@ -27,4 +27,4 @@ To enable `.vsix` in your local VSCode, open [Command Pallete](https://code.visu
 
 ![](https://i.imgur.com/LENlTj2.png)
 
-You can check if it is installed correctly typing **Installed Extensions** in Command Pallete or simply open `.dhall` file.
+You can check if it is installed correctly typing **Installed Extensions** in Command Pallete or simply opening `.dhall` file.
