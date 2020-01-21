@@ -1,4 +1,6 @@
-# dhall-language-support
+# [archived] dhall-language-support
+
+**Please use [`dhall-lang/vscode-language-dhall`](https://github.com/dhall-lang/vscode-language-dhall) instead of this repository**
 
 VSCode Launguage Support for [dhall-lang](https://github.com/dhall-lang/dhall-lang)
 
